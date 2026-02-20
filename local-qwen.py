@@ -30,5 +30,5 @@ async def ask_llm(q: Question):
     return answer
 
 
-print("Мика и qwen готовы к бою 🔥 http://0.0.0.0:8000")
+print("активен http://0.0.0.0:8000")
 uvicorn.run(app, host="0.0.0.0", port=8000)
