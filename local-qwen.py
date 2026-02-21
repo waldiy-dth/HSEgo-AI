@@ -18,7 +18,8 @@ async def ask_llm(q: Question):
     history[q.chat_id].append({"role": "user", "content": q.text})
     
     response = ollama.chat(
-        model='qwen2.5:3b',
+        #model='qwen2.5:3b',
+        model='qwen2:7b-q6_K',
         messages=history[q.chat_id]
     )
     
