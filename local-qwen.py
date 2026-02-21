@@ -19,7 +19,7 @@ async def ask_llm(q: Question):
     
     response = ollama.chat(
         #model='qwen2.5:3b',
-        model='qwen2:7b-q6_K',
+        model='qwen2:7b-instruct-q6_K',
         messages=history[q.chat_id]
     )
     

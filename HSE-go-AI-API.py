@@ -14,7 +14,7 @@ LLM_URL = "http://127.0.0.1:8000/ask"
 
 bot = TeleBot(token)
 def start_bot():
-    bot.polling(none_stop=True)
+      bot.infinity_polling(timeout=90, long_polling_timeout=20, skip_pending=True)
 
 flag = False
 
@@ -61,7 +61,7 @@ def brain_on(message):
                 "text": message.text, 
                 "chat_id": session_id  # Отправляем именно ID сессии вместо chat.id
             },
-            timeout=30
+            timeout=180
         )
         resp.raise_for_status()
         
@@ -84,16 +84,16 @@ def time_reply(message):
     bot.reply_to(message,'я пока не могу ответить на ваше сообщение, время в мск: ' + moscow_time.strftime("%H:%M:%S") + '\n чтобы писала нейронка: /ask')
 
 
-
-print("Бот запущен локально...")
-while True:
-    try:
-        bot_thread = threading.Thread(target=start_bot, daemon=True)
-        bot_thread.start()
-        input()
-    except KeyboardInterrupt:
-        print("\n Бот остановлен вручную")
-        exit()
-    except Exception as e:
-        print("Ошибка, перезапускаюсь...", e)
-        sleep(5)
+if __name__ == "__main__":
+    print("Бот запущен локально...")
+    while True:
+        try:
+            bot_thread = threading.Thread(target=start_bot, daemon=True)
+            bot_thread.start()
+            input()
+        except KeyboardInterrupt:
+            print("\n Бот остановлен вручную")
+            exit()
+        except Exception as e:
+            print("Ошибка, перезапускаюсь...", e)
+            sleep(5)
