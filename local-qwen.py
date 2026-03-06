@@ -22,7 +22,7 @@ async def ask_llm(q: Question):
         model='qwen2:7b-instruct-q6_K',
         messages=history[q.chat_id]
     )
-    
+    # давай какую-нибудь более легкую нейронку возьмем -- Qwen 3.5-9B, например
     answer = response['message']['content']
     history[q.chat_id].append({"role": "assistant", "content": answer})
     
