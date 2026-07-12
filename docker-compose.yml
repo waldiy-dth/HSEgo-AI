@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # Наш ИИ-сервер FastAPI
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      # Переменная указывает библиотеке ollama внутри контейнера стучаться на хост-машину Windows
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Наш Telegram-бот
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    volumes:
+      - .:/app
+    depends_on:
+      - api
+    # network_mode: "host" позволяет боту использовать системный VPN твоей Windows для обхода блокировок ТГ
+    network_mode: "host"
